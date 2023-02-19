@@ -1,12 +1,11 @@
 
 import { Form, Label, Input, Button } from './ContactForm.styled';
 
-
-  import { useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/operations';
 import { selectContacts } from 'redux/selectors';
-import './ContactForm.modyle.css';
+
 
 export default function ContactForm() {
   const [name, setName] = useState('');
@@ -37,14 +36,15 @@ export default function ContactForm() {
 
   const formSubmit = e => {
     e.preventDefault();
-    let test = true;
+    let result = true;
     contacts.forEach(elm => {
       if (elm.name === name) {
-        alert('This name is taken!');
-        test = false;
+        alert(`${name} is already exist.`);
+        resetForm();
+        result = false;
       }
     });
-    if (test) {
+    if (result) {
       dispatch(addContact({ name, phone }));
       resetForm();
     }
