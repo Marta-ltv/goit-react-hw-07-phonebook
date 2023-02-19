@@ -1,16 +1,18 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
-import { addContacts } from 'redux/operations';
-import { selectContacts } from 'redux/selectors';
+
 import { Form, Label, Input, Button } from './ContactForm.styled';
 
 
-  export default function ContactForm() {
+  import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact } from 'redux/operations';
+import { selectContacts } from 'redux/selectors';
+import './ContactForm.modyle.css';
+
+export default function ContactForm() {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const dispatch = useDispatch();
-  const {contacts} = useSelector(selectContacts);
- 
+  const { contacts } = useSelector(selectContacts);
 
   const handleChange = e => {
     const { name, value } = e.currentTarget;
@@ -36,18 +38,17 @@ import { Form, Label, Input, Button } from './ContactForm.styled';
   const formSubmit = e => {
     e.preventDefault();
     let test = true;
-    contacts.forEach(el => {
-      if (el.name === name) {
-        alert(`${name} is already in contacts`);
+    contacts.forEach(elm => {
+      if (elm.name === name) {
+        alert('This name is taken!');
         test = false;
       }
     });
     if (test) {
-      dispatch(addContacts({ name, phone }));
+      dispatch(addContact({ name, phone }));
       resetForm();
     }
   };
-
 
 
   return (

@@ -1,32 +1,42 @@
-import React from 'react';
-import { FilterLabel, FilterInput } from "./Filter.styled";
-import { useDispatch, useSelector } from 'react-redux';
-import { contactFilter } from 'redux/filterSlice';
-import { selectFilter } from 'redux/selectors';
-
+// import { FilterLabel, FilterInput } from "./Filter.styled";
+import { useSelector, useDispatch } from 'react-redux';
+import { updateFilter } from '../../redux/filterSlice';
+import { selectFilter } from '../../redux/selectors';
+import './Filter.modyle.css';
 
 export default function Filter() {
   const filter = useSelector(selectFilter);
   const dispatch = useDispatch();
-  
-  
-  const filterChange = e => {
-    dispatch(contactFilter(e.currentTarget.value));
+  const changeFilter = e => {
+    dispatch(updateFilter(e.currentTarget.value));
   };
 
+  return (
+    <label className="filter">
+      Find contacts by name:
+      <input
+        className="filter__input"
+        type="text"
+        value={filter}
+        onChange={changeFilter}
+      />
+    </label>
+  );
+}
 
- return (
-  <FilterLabel>
-    Find contacts by Name
-     <FilterInput
-      type="text"
-       value = {filter}
-       placeholder="Search contact"
-      onChange={filterChange}
-    />
-  </FilterLabel>
-);
-};
+
+//  return (
+//   <FilterLabel>
+//     Find contacts by Name
+//      <FilterInput
+//       type="text"
+//        value = {filter}
+//        placeholder="Search contact"
+//       onChange={filterChange}
+//     />
+//   </FilterLabel>
+// );
+// };
     
 
 
